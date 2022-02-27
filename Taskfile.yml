@@ -1,0 +1,26 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  GREETING: Hello, World!
+
+tasks:
+  default:
+    cmds:
+      - echo "{{.GREETING}}"
+    silent: true
+  ent:
+    dir: pkg
+    cmds:
+      - ent generate ./ent/schema
+  todo:
+    cmds:
+      - rg 'TODO'
+  backup:
+    cmds:
+      - cp sqlite3.db backups
+  build:
+    deps: ['ent']
+    cmds:
+      - go build ./cmd/magicman

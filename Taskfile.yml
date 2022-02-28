@@ -16,6 +16,7 @@ tasks:
       - ent generate ./ent/schema
   todo:
     cmds:
+      - cat TODO.md
       - rg 'TODO'
   backup:
     cmds:

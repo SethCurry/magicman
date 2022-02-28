@@ -172,11 +172,6 @@ func SyncGatherer(ctx context.Context, db *ent.Client, mtgClient *mtg.Client, lo
 			_, err = db.Card.Query().Where(card.MultiverseIDEQ(v.MultiverseID)).Only(ctx)
 			if err != nil {
 				if ent.IsNotFound(err) {
-					foundSet, err := db.Set.Query().Where(set.CodeEQ(v.Set)).Only(ctx)
-					if err != nil {
-						return err
-					}
-
 					logger.Debug("creating new card",
 						zap.String("name", v.Name),
 					)
@@ -195,8 +190,16 @@ func SyncGatherer(ctx context.Context, db *ent.Client, mtgClient *mtg.Client, lo
 						SetImageURL(v.ImageURL).
 						SetRarity(v.Rarity).
 						SetOriginalText(v.OriginalText).
-						SetOriginalType(v.OriginalType).
-						SetSet(foundSet)
+						SetOriginalType(v.OriginalType)
+
+					foundSet, err := db.Set.Query().Where(set.CodeEQ(v.Set)).Only(ctx)
+					if err != nil {
+						logger.Error("failed to find set",
+							zap.String("set_code", v.Set),
+						)
+					} else {
+						newCardQuery.SetSet(foundSet)
+					}
 
 					if len(v.Types) > 0 {
 						cardTypes, err := db.CardType.Query().Where(cardtype.NameIn(v.Types...)).All(ctx)

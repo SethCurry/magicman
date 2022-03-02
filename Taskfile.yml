@@ -12,8 +12,13 @@ tasks:
     silent: true
   ent:
     dir: pkg
+    sources:
+      - ent/schema/*.go
+    generates:
+      - ent/*.go
     cmds:
       - ent generate ./ent/schema
+    method: checksum
   todo:
     cmds:
       - cat TODO.md

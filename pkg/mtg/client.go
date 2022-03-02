@@ -60,6 +60,8 @@ func WithPage(pageID int) SearchCardsOption {
 	}
 }
 
+// TODO retry count
+// TODO rate limiting
 type Client struct{}
 
 type SearchCardsOption func(*CardQuery) error

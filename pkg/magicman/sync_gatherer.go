@@ -63,6 +63,7 @@ func CacheImages(ctx context.Context, db *ent.Client, intoDirectory string, logg
 
 // TODO add rate limiter
 // TODO add logging
+// TODO split this into separate functions
 func SyncGatherer(ctx context.Context, db *ent.Client, mtgClient *mtg.Client, logger *zap.Logger) error {
 	page := 1
 
@@ -194,7 +195,7 @@ func SyncGatherer(ctx context.Context, db *ent.Client, mtgClient *mtg.Client, lo
 
 					foundSet, err := db.Set.Query().Where(set.CodeEQ(v.Set)).Only(ctx)
 					if err != nil {
-						logger.Error("failed to find set",
+						logger.Info("failed to find set",
 							zap.String("set_code", v.Set),
 						)
 					} else {

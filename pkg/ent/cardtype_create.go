@@ -112,7 +112,7 @@ func (ctc *CardTypeCreate) ExecX(ctx context.Context) {
 // check runs all checks and user-defined validators on the builder.
 func (ctc *CardTypeCreate) check() error {
 	if _, ok := ctc.mutation.Name(); !ok {
-		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "name"`)}
+		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "CardType.name"`)}
 	}
 	return nil
 }

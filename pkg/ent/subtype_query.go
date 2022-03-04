@@ -444,6 +444,10 @@ func (stq *SubTypeQuery) sqlAll(ctx context.Context) ([]*SubType, error) {
 
 func (stq *SubTypeQuery) sqlCount(ctx context.Context) (int, error) {
 	_spec := stq.querySpec()
+	_spec.Node.Columns = stq.fields
+	if len(stq.fields) > 0 {
+		_spec.Unique = stq.unique != nil && *stq.unique
+	}
 	return sqlgraph.CountNodes(ctx, stq.driver, _spec)
 }
 
@@ -514,6 +518,9 @@ func (stq *SubTypeQuery) sqlQuery(ctx context.Context) *sql.Selector {
 	if stq.sql != nil {
 		selector = stq.sql
 		selector.Select(selector.Columns(columns...)...)
+	}
+	if stq.unique != nil && *stq.unique {
+		selector.Distinct()
 	}
 	for _, p := range stq.predicates {
 		p(selector)
@@ -793,9 +800,7 @@ func (stgb *SubTypeGroupBy) sqlQuery() *sql.Selector {
 		for _, f := range stgb.fields {
 			columns = append(columns, selector.C(f))
 		}
-		for _, c := range aggregation {
-			columns = append(columns, c)
-		}
+		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
 	return selector.GroupBy(selector.Columns(stgb.fields...)...)

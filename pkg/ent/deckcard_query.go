@@ -481,6 +481,10 @@ func (dcq *DeckCardQuery) sqlAll(ctx context.Context) ([]*DeckCard, error) {
 
 func (dcq *DeckCardQuery) sqlCount(ctx context.Context) (int, error) {
 	_spec := dcq.querySpec()
+	_spec.Node.Columns = dcq.fields
+	if len(dcq.fields) > 0 {
+		_spec.Unique = dcq.unique != nil && *dcq.unique
+	}
 	return sqlgraph.CountNodes(ctx, dcq.driver, _spec)
 }
 
@@ -551,6 +555,9 @@ func (dcq *DeckCardQuery) sqlQuery(ctx context.Context) *sql.Selector {
 	if dcq.sql != nil {
 		selector = dcq.sql
 		selector.Select(selector.Columns(columns...)...)
+	}
+	if dcq.unique != nil && *dcq.unique {
+		selector.Distinct()
 	}
 	for _, p := range dcq.predicates {
 		p(selector)
@@ -830,9 +837,7 @@ func (dcgb *DeckCardGroupBy) sqlQuery() *sql.Selector {
 		for _, f := range dcgb.fields {
 			columns = append(columns, selector.C(f))
 		}
-		for _, c := range aggregation {
-			columns = append(columns, c)
-		}
+		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
 	return selector.GroupBy(selector.Columns(dcgb.fields...)...)

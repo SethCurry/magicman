@@ -304,46 +304,46 @@ func (cc *CardCreate) ExecX(ctx context.Context) {
 // check runs all checks and user-defined validators on the builder.
 func (cc *CardCreate) check() error {
 	if _, ok := cc.mutation.MultiverseID(); !ok {
-		return &ValidationError{Name: "multiverse_id", err: errors.New(`ent: missing required field "multiverse_id"`)}
+		return &ValidationError{Name: "multiverse_id", err: errors.New(`ent: missing required field "Card.multiverse_id"`)}
 	}
 	if _, ok := cc.mutation.GathererID(); !ok {
-		return &ValidationError{Name: "gatherer_id", err: errors.New(`ent: missing required field "gatherer_id"`)}
+		return &ValidationError{Name: "gatherer_id", err: errors.New(`ent: missing required field "Card.gatherer_id"`)}
 	}
 	if _, ok := cc.mutation.Name(); !ok {
-		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "name"`)}
+		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "Card.name"`)}
 	}
 	if _, ok := cc.mutation.GetType(); !ok {
-		return &ValidationError{Name: "type", err: errors.New(`ent: missing required field "type"`)}
+		return &ValidationError{Name: "type", err: errors.New(`ent: missing required field "Card.type"`)}
 	}
 	if _, ok := cc.mutation.Text(); !ok {
-		return &ValidationError{Name: "text", err: errors.New(`ent: missing required field "text"`)}
+		return &ValidationError{Name: "text", err: errors.New(`ent: missing required field "Card.text"`)}
 	}
 	if _, ok := cc.mutation.Cmc(); !ok {
-		return &ValidationError{Name: "cmc", err: errors.New(`ent: missing required field "cmc"`)}
+		return &ValidationError{Name: "cmc", err: errors.New(`ent: missing required field "Card.cmc"`)}
 	}
 	if _, ok := cc.mutation.ManaCost(); !ok {
-		return &ValidationError{Name: "mana_cost", err: errors.New(`ent: missing required field "mana_cost"`)}
+		return &ValidationError{Name: "mana_cost", err: errors.New(`ent: missing required field "Card.mana_cost"`)}
 	}
 	if _, ok := cc.mutation.Artist(); !ok {
-		return &ValidationError{Name: "artist", err: errors.New(`ent: missing required field "artist"`)}
+		return &ValidationError{Name: "artist", err: errors.New(`ent: missing required field "Card.artist"`)}
 	}
 	if _, ok := cc.mutation.Power(); !ok {
-		return &ValidationError{Name: "power", err: errors.New(`ent: missing required field "power"`)}
+		return &ValidationError{Name: "power", err: errors.New(`ent: missing required field "Card.power"`)}
 	}
 	if _, ok := cc.mutation.Toughness(); !ok {
-		return &ValidationError{Name: "toughness", err: errors.New(`ent: missing required field "toughness"`)}
+		return &ValidationError{Name: "toughness", err: errors.New(`ent: missing required field "Card.toughness"`)}
 	}
 	if _, ok := cc.mutation.ImageURL(); !ok {
-		return &ValidationError{Name: "image_url", err: errors.New(`ent: missing required field "image_url"`)}
+		return &ValidationError{Name: "image_url", err: errors.New(`ent: missing required field "Card.image_url"`)}
 	}
 	if _, ok := cc.mutation.OriginalText(); !ok {
-		return &ValidationError{Name: "original_text", err: errors.New(`ent: missing required field "original_text"`)}
+		return &ValidationError{Name: "original_text", err: errors.New(`ent: missing required field "Card.original_text"`)}
 	}
 	if _, ok := cc.mutation.OriginalType(); !ok {
-		return &ValidationError{Name: "original_type", err: errors.New(`ent: missing required field "original_type"`)}
+		return &ValidationError{Name: "original_type", err: errors.New(`ent: missing required field "Card.original_type"`)}
 	}
 	if _, ok := cc.mutation.Rarity(); !ok {
-		return &ValidationError{Name: "rarity", err: errors.New(`ent: missing required field "rarity"`)}
+		return &ValidationError{Name: "rarity", err: errors.New(`ent: missing required field "Card.rarity"`)}
 	}
 	return nil
 }

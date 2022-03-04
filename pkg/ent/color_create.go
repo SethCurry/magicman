@@ -118,10 +118,10 @@ func (cc *ColorCreate) ExecX(ctx context.Context) {
 // check runs all checks and user-defined validators on the builder.
 func (cc *ColorCreate) check() error {
 	if _, ok := cc.mutation.Name(); !ok {
-		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "name"`)}
+		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "Color.name"`)}
 	}
 	if _, ok := cc.mutation.Code(); !ok {
-		return &ValidationError{Name: "code", err: errors.New(`ent: missing required field "code"`)}
+		return &ValidationError{Name: "code", err: errors.New(`ent: missing required field "Color.code"`)}
 	}
 	return nil
 }

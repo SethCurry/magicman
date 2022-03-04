@@ -123,10 +123,10 @@ func (rc *RulingCreate) ExecX(ctx context.Context) {
 // check runs all checks and user-defined validators on the builder.
 func (rc *RulingCreate) check() error {
 	if _, ok := rc.mutation.Text(); !ok {
-		return &ValidationError{Name: "text", err: errors.New(`ent: missing required field "text"`)}
+		return &ValidationError{Name: "text", err: errors.New(`ent: missing required field "Ruling.text"`)}
 	}
 	if _, ok := rc.mutation.Date(); !ok {
-		return &ValidationError{Name: "date", err: errors.New(`ent: missing required field "date"`)}
+		return &ValidationError{Name: "date", err: errors.New(`ent: missing required field "Ruling.date"`)}
 	}
 	return nil
 }

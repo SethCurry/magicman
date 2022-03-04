@@ -4,6 +4,7 @@ package ent
 
 import (
 	"context"
+	"errors"
 	"fmt"
 
 	"entgo.io/ent/dialect/sql"
@@ -347,7 +348,7 @@ func (stuo *SubTypeUpdateOne) sqlSave(ctx context.Context) (_node *SubType, err 
 	}
 	id, ok := stuo.mutation.ID()
 	if !ok {
-		return nil, &ValidationError{Name: "ID", err: fmt.Errorf("missing SubType.ID for update")}
+		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "SubType.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
 	if fields := stuo.fields; len(fields) > 0 {

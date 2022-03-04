@@ -136,19 +136,19 @@ func (sc *SetCreate) ExecX(ctx context.Context) {
 // check runs all checks and user-defined validators on the builder.
 func (sc *SetCreate) check() error {
 	if _, ok := sc.mutation.Code(); !ok {
-		return &ValidationError{Name: "code", err: errors.New(`ent: missing required field "code"`)}
+		return &ValidationError{Name: "code", err: errors.New(`ent: missing required field "Set.code"`)}
 	}
 	if _, ok := sc.mutation.Name(); !ok {
-		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "name"`)}
+		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "Set.name"`)}
 	}
 	if _, ok := sc.mutation.GetType(); !ok {
-		return &ValidationError{Name: "type", err: errors.New(`ent: missing required field "type"`)}
+		return &ValidationError{Name: "type", err: errors.New(`ent: missing required field "Set.type"`)}
 	}
 	if _, ok := sc.mutation.Border(); !ok {
-		return &ValidationError{Name: "border", err: errors.New(`ent: missing required field "border"`)}
+		return &ValidationError{Name: "border", err: errors.New(`ent: missing required field "Set.border"`)}
 	}
 	if _, ok := sc.mutation.ReleaseDate(); !ok {
-		return &ValidationError{Name: "release_date", err: errors.New(`ent: missing required field "release_date"`)}
+		return &ValidationError{Name: "release_date", err: errors.New(`ent: missing required field "Set.release_date"`)}
 	}
 	return nil
 }

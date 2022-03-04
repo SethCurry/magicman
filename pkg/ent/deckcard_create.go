@@ -136,11 +136,11 @@ func (dcc *DeckCardCreate) ExecX(ctx context.Context) {
 // check runs all checks and user-defined validators on the builder.
 func (dcc *DeckCardCreate) check() error {
 	if _, ok := dcc.mutation.Count(); !ok {
-		return &ValidationError{Name: "count", err: errors.New(`ent: missing required field "count"`)}
+		return &ValidationError{Name: "count", err: errors.New(`ent: missing required field "DeckCard.count"`)}
 	}
 	if v, ok := dcc.mutation.Count(); ok {
 		if err := deckcard.CountValidator(v); err != nil {
-			return &ValidationError{Name: "count", err: fmt.Errorf(`ent: validator failed for field "count": %w`, err)}
+			return &ValidationError{Name: "count", err: fmt.Errorf(`ent: validator failed for field "DeckCard.count": %w`, err)}
 		}
 	}
 	return nil

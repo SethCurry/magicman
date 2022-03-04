@@ -4,6 +4,7 @@ package ent
 
 import (
 	"context"
+	"errors"
 	"fmt"
 
 	"entgo.io/ent/dialect/sql"
@@ -160,7 +161,7 @@ func (dcu *DeckCardUpdate) ExecX(ctx context.Context) {
 func (dcu *DeckCardUpdate) check() error {
 	if v, ok := dcu.mutation.Count(); ok {
 		if err := deckcard.CountValidator(v); err != nil {
-			return &ValidationError{Name: "count", err: fmt.Errorf("ent: validator failed for field \"count\": %w", err)}
+			return &ValidationError{Name: "count", err: fmt.Errorf(`ent: validator failed for field "DeckCard.count": %w`, err)}
 		}
 	}
 	return nil
@@ -426,7 +427,7 @@ func (dcuo *DeckCardUpdateOne) ExecX(ctx context.Context) {
 func (dcuo *DeckCardUpdateOne) check() error {
 	if v, ok := dcuo.mutation.Count(); ok {
 		if err := deckcard.CountValidator(v); err != nil {
-			return &ValidationError{Name: "count", err: fmt.Errorf("ent: validator failed for field \"count\": %w", err)}
+			return &ValidationError{Name: "count", err: fmt.Errorf(`ent: validator failed for field "DeckCard.count": %w`, err)}
 		}
 	}
 	return nil
@@ -445,7 +446,7 @@ func (dcuo *DeckCardUpdateOne) sqlSave(ctx context.Context) (_node *DeckCard, er
 	}
 	id, ok := dcuo.mutation.ID()
 	if !ok {
-		return nil, &ValidationError{Name: "ID", err: fmt.Errorf("missing DeckCard.ID for update")}
+		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "DeckCard.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
 	if fields := dcuo.fields; len(fields) > 0 {

@@ -118,10 +118,10 @@ func (dc *DeckCreate) ExecX(ctx context.Context) {
 // check runs all checks and user-defined validators on the builder.
 func (dc *DeckCreate) check() error {
 	if _, ok := dc.mutation.Name(); !ok {
-		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "name"`)}
+		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "Deck.name"`)}
 	}
 	if _, ok := dc.mutation.Description(); !ok {
-		return &ValidationError{Name: "description", err: errors.New(`ent: missing required field "description"`)}
+		return &ValidationError{Name: "description", err: errors.New(`ent: missing required field "Deck.description"`)}
 	}
 	return nil
 }

@@ -408,6 +408,10 @@ func (dq *DeckQuery) sqlAll(ctx context.Context) ([]*Deck, error) {
 
 func (dq *DeckQuery) sqlCount(ctx context.Context) (int, error) {
 	_spec := dq.querySpec()
+	_spec.Node.Columns = dq.fields
+	if len(dq.fields) > 0 {
+		_spec.Unique = dq.unique != nil && *dq.unique
+	}
 	return sqlgraph.CountNodes(ctx, dq.driver, _spec)
 }
 
@@ -478,6 +482,9 @@ func (dq *DeckQuery) sqlQuery(ctx context.Context) *sql.Selector {
 	if dq.sql != nil {
 		selector = dq.sql
 		selector.Select(selector.Columns(columns...)...)
+	}
+	if dq.unique != nil && *dq.unique {
+		selector.Distinct()
 	}
 	for _, p := range dq.predicates {
 		p(selector)
@@ -757,9 +764,7 @@ func (dgb *DeckGroupBy) sqlQuery() *sql.Selector {
 		for _, f := range dgb.fields {
 			columns = append(columns, selector.C(f))
 		}
-		for _, c := range aggregation {
-			columns = append(columns, c)
-		}
+		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
 	return selector.GroupBy(selector.Columns(dgb.fields...)...)

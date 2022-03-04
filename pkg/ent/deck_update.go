@@ -4,6 +4,7 @@ package ent
 
 import (
 	"context"
+	"errors"
 	"fmt"
 
 	"entgo.io/ent/dialect/sql"
@@ -366,7 +367,7 @@ func (duo *DeckUpdateOne) sqlSave(ctx context.Context) (_node *Deck, err error) 
 	}
 	id, ok := duo.mutation.ID()
 	if !ok {
-		return nil, &ValidationError{Name: "ID", err: fmt.Errorf("missing Deck.ID for update")}
+		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Deck.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
 	if fields := duo.fields; len(fields) > 0 {

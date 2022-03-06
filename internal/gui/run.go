@@ -43,7 +43,12 @@ func (a *Application) Run() {
 	if err != nil {
 		panic(err)
 	}
-	content := container.NewBorder(DefaultToolbar(), nil, nil, nil, tbl)
+
+	inputWidget := widget.NewEntry()
+
+	content := container.NewBorder(DefaultToolbar(), nil, nil, nil,
+		container.NewBorder(
+			container.NewHBox(widget.NewLabel("Query"), inputWidget), nil, nil, nil, tbl))
 	a.window.SetContent(content)
 	a.window.Show()
 	a.app.Run()
